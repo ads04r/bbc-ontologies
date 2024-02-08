@@ -1,0 +1,509 @@
+# baseURI: http://www.bbc.co.uk/ontologies/bbc
+# imports: http://purl.org/dc/elements/1.1/
+# imports: http://purl.org/dc/terms/
+# imports: http://www.bbc.co.uk/ontologies/creativework
+# imports: http://www.bbc.co.uk/ontologies/provenance
+
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix audience: <http://www.bbc.co.uk/ontologies/audience/> .
+@prefix bbc: <http://www.bbc.co.uk/ontologies/bbc/> .
+@prefix core: <http://www.bbc.co.uk/ontologies/coreconcepts/> .
+@prefix cwork: <http://www.bbc.co.uk/ontologies/creativework/> .
+@prefix provenance: <http://www.bbc.co.uk/ontologies/provenance/> .
+@prefix tagging: <http://www.bbc.co.uk/ontologies/tagging/> .
+
+<http://www.bbc.co.uk/ontologies/bbc>
+	rdf:type provenance:Ontology , owl:Ontology ;
+	rdfs:comment """The BBC ontology is used to describe BBC concepts in the store. For example, the BBC divisions (products) publishing linked data and interfacing with the triplestore, the platforms for which we produce content and the web documents that publish or are relevant to the BBC's content."""@en-gb ;
+	rdfs:label "BBC Ontology"@en-gb ;
+	dc:creator <mailto:jeremy.tarling@bbc.co.uk> , <mailto:tom.hodgkinson@bbc.co.uk> ;
+	dc:date "2012-12-01"^^xsd:date ;
+	dcterms:modified "2021-11-11"^^xsd:date ;
+	dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
+	provenance:canonicalLocation "https://github.com/bbc/ontologies/blob/master/core/bbc.ttl"^^xsd:string ;
+	provenance:changeReason "Adding Shelf Life class and property"@en-gb ;
+	provenance:public "true"^^xsd:boolean ;
+	provenance:slug "bbc"^^xsd:string ;
+	provenance:version "1.37"^^xsd:string ;
+	owl:imports dc: , dcterms: , <http://www.bbc.co.uk/ontologies/creativework> , <http://www.bbc.co.uk/ontologies/provenance> ;
+	owl:priorVersion bbc:1.36 ;
+	owl:versionIRI bbc:1.37 ;
+	owl:versionInfo "1.37"^^xsd:string .
+
+## Classes
+
+bbc:Blogs
+	rdf:type bbc:Product ;
+	rdfs:comment "This instance of bbc:Product is needed to associate WebDocuments from the BBC blogs."@en-gb ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "Blogs"@en-gb .
+
+bbc:Education
+	rdf:type bbc:Product ;
+	rdfs:comment "This instance of bbc:Product is needed to associate WebDocuments from BBC Education."@en-gb ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "Education"@en-gb .
+
+bbc:Facebook
+	rdf:type bbc:Product ;
+	rdfs:comment "Represents the official Facebook pages of the things the BBC creates content about e.g., the Manchester council Facebook account http://www.facebook.com/mancitycouncil."@en-gb ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "Facebook"@en-gb .
+
+bbc:HighWeb
+	rdf:type bbc:Platform ;
+	rdfs:comment "Represents the  web documents designed for a large screen."@en-gb ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "HighWeb"@en-gb .
+
+bbc:Mobile
+	rdf:type bbc:Platform ;
+	rdfs:comment "Represents the web documents designed for a smaller, mobile screen."@en-gb ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "Mobile"@en-gb .
+
+bbc:Music
+	rdf:type bbc:Product ;
+	rdfs:comment "This instance of bbc:Product is needed to associate WebDocuments from BBC Music."@en-gb ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "Music"@en-gb .
+
+bbc:News
+	rdf:type bbc:Product ;
+	rdfs:comment "This instance of bbc:Product is needed to associate WebDocuments from BBC News."@en-gb ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "News"@en-gb .
+
+bbc:NewsService
+	rdf:type owl:Class ;
+	rdfs:comment "Class representing a BBC News service, e.g., BBC Guernsey."@en-gb ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "NewsService"@en-gb ;
+	rdfs:subClassOf core:Organisation .
+
+bbc:SportEditorialTeam
+	rdf:type owl:Class ;
+	rdfs:comment "Class representing BBC Sport editorial teams, e.g. BBC Sport Scotland"@en-gb ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "SportEditorialTeam"@en-gb ;
+	rdfs:subClassOf core:Organisation .
+
+bbc:OfficialHomepage
+	rdf:type bbc:Product ;
+	rdfs:comment "Represents the official home pages of the things the BBC creates content about e.g., the Manchester council homepage http://www.manchester.gov.uk."@en-gb ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "OfficialHomepage"@en-gb .
+
+bbc:Platform
+	rdf:type owl:Class ;
+	rdfs:comment "Represents the different types of platforms through which a web document can be accessed. This is needed to derive the correct web document for consumption from the appropriate platform. If there's no specification on platform suitability then the document is considered to be suitable for both."@en-gb ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "Platform"@en-gb ;
+	rdfs:subClassOf owl:Thing .
+
+bbc:Product
+	rdf:type owl:Class ;
+	rdfs:comment "Class representing products which create content about things. Within the BBC's scope, this would be one of the ten Future Media Products. Outside the BBC, this could refer to an organisation or company whose web pages we link to. Typically the official web pages of things (e.g., http://www.tomdaley.tv/) or their Wikipedia, Twitter and Facebook pages."@en-gb ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "Product"@en-gb ;
+	rdfs:subClassOf owl:Thing .
+
+bbc:Sport
+	rdf:type bbc:Product ;
+	rdfs:comment "This instance of bbc:Product is needed to associate WebDocuments from BBC Sport."@en-gb ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "Sport"@en-gb .
+
+bbc:Twitter
+	rdf:type bbc:Product ;
+	rdfs:comment "Represents the official twitter pages of the things the BBC creates content about e.g., the Manchester council twitter account http://twitter.com/ManCityCouncil."@en-gb ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "Twitter"@en-gb .
+
+bbc:WebDocument
+	rdf:type owl:Class ;
+	rdfs:comment "A web document is a page available from a content-negotiable URL on the BBC website or any web document to which the BBC points at."@en-gb ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "WebDocument"@en-gb ;
+	rdfs:subClassOf owl:Thing .
+
+bbc:Format
+	rdf:type owl:Class;
+	rdfs:subClassOf tagging:Format ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "Format"@en-gb .
+
+bbc:EditorialFormat
+	rdf:type owl:Class;
+	rdfs:subClassOf bbc:Format ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "EditorialFormat"@en-gb .
+
+bbc:MediaFormat
+	rdf:type owl:Class;
+	rdfs:subClassOf bbc:Format ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "MediaFormat"@en-gb .
+
+bbc:Genre
+	rdf:type owl:Class;
+	rdfs:subClassOf tagging:Genre ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "Genre"@en-gb .
+
+bbc:WebDocumentCategory
+	rdf:type owl:Class ;
+	rdfs:comment "This class is needed to support the different categories of web documents. This is meant to be extended by the clients with categories of web documents that make sense to their own product. For example, dynamically generated aggregations of content or editorially curated profiles of things."@en-gb ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "WebDocumentCategory"@en-gb ;
+	rdfs:subClassOf owl:Thing .
+
+bbc:Correspondent
+	a owl:Class ;
+	rdfs:label "Correspondent" ;
+	rdfs:comment "The class of BBC correspondents" ;
+	rdfs:subClassOf core:Person .
+
+bbc:Campaign
+	a owl:Class ;
+	rdfs:label "Campaign"@en-gb ;
+	rdfs:comment "An editorial campaign which groups together BBC assets"@en-gb ;
+	rdfs:isDefinedBy bbc:1.27 ;
+	rdfs:subClassOf tagging:Campaign .
+
+# Editorial Sensitivity
+bbc:EditorialSensitivity
+	a owl:Class ;
+	rdfs:comment "An editorial sensitivity for a BBC asset."@en-gb ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "EditorialSensitivity"@en-gb ;
+	rdfs:subClassOf tagging:EditorialSensitivity .
+
+# Audience
+bbc:Audience
+	a owl:Class ;
+	rdfs:subClassOf tagging:Audience ;
+	rdfs:comment "An audience for a BBC asset."@en-gb ;
+	rdfs:label "Audience"@en-gb ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> .
+
+# Nation
+bbc:Nation
+	a owl:Class ;
+	rdfs:label "Audience nation"@en-gb ;
+	rdfs:comment "BBC national audience location"@en-gb ;
+	rdfs:subClassOf audience:Location ;
+	rdfs:isDefinedBy bbc:1.26 .
+
+# Region
+bbc:Region
+	a owl:Class ;
+	rdfs:label "Audience region"@en-gb ;
+	rdfs:comment "BBC regional audience location"@en-gb ;
+	rdfs:subClassOf audience:Location ;
+	rdfs:isDefinedBy bbc:1.26 .
+
+# Brand - added in version 1.20
+bbc:Brand
+	a owl:Class ;
+	rdfs:comment "A brand for a BBC asset - for example a PIPs programme brand like 'Luther' or a Journalism brand like 'Reality Check"@en-gb ;
+	rdfs:label "Brand"@en-gb ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> .
+
+bbc:CoreService
+	a owl:Class ;
+	rdfs:label "CoreService"@en-gb ;
+	rdfs:comment "The primary access points for audiences to consume BBC content"@en-gb  ;
+	rdfs:subClassOf bbc:Brand ;
+	rdfs:isDefinedBy bbc:1.35 .
+
+bbc:CuratorBrand
+	a owl:Class ;
+	rdfs:label "CuratorBrand"@en-gb ;
+	rdfs:comment "National/local TV/radio services, World Service language services, curated groupings of online content"@en-gb  ;
+	rdfs:subClassOf bbc:Brand , tagging:Brand ;
+	rdfs:isDefinedBy bbc:1.35 .
+
+bbc:ContentBrand
+	a owl:Class ;
+	rdfs:label "ContentBrand"@en-gb ;
+	rdfs:comment "Top-level programme objects and journalism brands (like 'Reality Check')"@en-gb  ;
+	rdfs:subClassOf bbc:Brand , tagging:Brand ;
+	rdfs:isDefinedBy bbc:1.35 .
+
+# InfoClass
+bbc:InfoClass
+	a owl:Class ;
+	rdfs:label "InfoClass"@en-gb ;
+	rdfs:comment "The information security classification for a BBC asset"@en-gb ;
+	rdfs:subClassOf tagging:InfoClass ;
+	rdfs:isDefinedBy bbc:1.23 .
+
+# Narrative Theme
+bbc:NarrativeTheme
+	a owl:Class ;
+	rdfs:label "NarrativeTheme"@en-gb ;
+	rdfs:comment "The narrative theme of a BBC asset"@en-gb ;
+	rdfs:subClassOf core:Theme , tagging:NarrativeTheme ;
+	rdfs:isDefinedBy bbc:1.29 .
+
+# Asset Type
+bbc:AssetType
+	a owl:Class ;
+	rdfs:label "AssetType"@en-gb ;
+	rdfs:comment "The type or form of a BBC asset"@en-gb ;
+	rdfs:subClassOf tagging:AssetType ;
+	rdfs:isDefinedBy bbc:1.30 .
+
+# Organisational Unit
+bbc:OrganisationalUnit
+	a owl:Class ;
+	rdfs:label "OrganisationalUnit"@en-gb ;
+	rdfs:comment "A BBC team, BBC department, or any other part of the BBC"@en-gb ;
+	rdfs:isDefinedBy bbc:1.32 ;
+	rdfs:subClassOf tagging:Agent , tagging:OrganisationalUnit .
+
+# Shelf Life
+bbc:ShelfLife
+	a owl:Class ;
+	rdfs:label "ShelfLife"@en-gb ;
+	rdfs:comment "A period of time for which it is appropriate to promote an asset"@en-gb ;
+	rdfs:isDefinedBy bbc:1.36 ;
+	rdfs:subClassOf tagging:ShelfLife .
+
+## Properties
+
+bbc:hasOutput
+	rdf:type owl:ObjectProperty ;
+	rdfs:comment "Associates a regional BBC service with an audience facing output such as a News website."@en-gb ;
+	rdfs:domain bbc:NewsService ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "hasOutput"@en-gb ;
+	rdfs:range bbc:WebDocument .
+
+bbc:platform
+	rdf:type owl:ObjectProperty ;
+	rdfs:comment "Associates a web document with one of the platforms for which the WebDocument is appropriate. If the WebDocument is responsive then this property is not used because the WebDocument is appropriate for both platforms. Only one of the two allowed values (bbc:HighWeb, bbc:Mobile) can be used for every WebDocument. Therefore the property is used with at most one value per WebDocument."@en-gb ;
+	rdfs:domain bbc:WebDocument ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "platform"@en-gb ;
+	rdfs:range bbc:Platform .
+
+bbc:primaryContent
+	rdf:type owl:ObjectProperty ;
+	rdfs:comment "Represents the fact that a web document has as primary content the creative work (e.g., a news story about Tom Daley is the primary content of a webpage)."@en-gb ;
+	rdfs:domain bbc:WebDocument ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "primaryContent"@en-gb ;
+	rdfs:range cwork:CreativeWork ;
+	owl:inverseOf bbc:primaryContentOf .
+
+bbc:primaryContentOf
+	rdf:type owl:ObjectProperty ;
+	rdfs:comment "Inverse of bbc:primaryContent."@en-gb ;
+	rdfs:domain cwork:CreativeWork ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "primaryContentOf"@en-gb ;
+	rdfs:range bbc:WebDocument ;
+	owl:inverseOf bbc:primaryContent .
+
+bbc:product
+	rdf:type owl:ObjectProperty ;
+	rdfs:comment "Associates the WebDocument with the particular BBC Product it belongs to. This reflects the editorial branding of the product."@en-gb ;
+	rdfs:domain bbc:WebDocument ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "product"@en-gb ;
+	rdfs:range bbc:Product .
+
+bbc:servedBy
+	rdf:type owl:ObjectProperty ;
+	rdfs:comment "Associates a populated place with a regional BBC service that it is served by."@en-gb ;
+	rdfs:domain core:Place ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "servedBy"@en-gb ;
+	rdfs:range bbc:NewsService ;
+	owl:deprecated "true"^^xsd:boolean;
+	owl:inverseOf bbc:serves .
+
+bbc:serves
+	rdf:type owl:ObjectProperty ;
+	rdfs:comment "Associates a regional BBC service with a populated place that it serves."@en-gb ;
+	rdfs:domain bbc:NewsService ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "serves"@en-gb ;
+	rdfs:range core:Place ;
+	owl:inverseOf bbc:servedBy .
+
+bbc:coveredBy
+	rdf:type owl:ObjectProperty ;
+	rdfs:comment "Associates a Thing with a regional BBC service which reports on it."@en-gb ;
+	rdfs:domain core:Thing ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "coveredBy"@en-gb ;
+	rdfs:range bbc:NewsService ;
+	owl:inverseOf bbc:covers .
+
+bbc:covers
+	rdf:type owl:ObjectProperty ;
+	rdfs:comment "Associates a regional BBC service with a Thing that it regularly reports on."@en-gb ;
+	rdfs:domain bbc:NewsService ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "covers"@en-gb ;
+	rdfs:range core:Thing ;
+	owl:inverseOf bbc:coveredBy .
+
+bbc:webDocumentCategory
+	rdf:type owl:ObjectProperty ;
+	rdfs:comment "Associates a web document with a category as defined by clients."@en-gb ;
+	rdfs:domain bbc:WebDocument ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:label "webDocumentCategory"@en-gb ;
+	rdfs:range bbc:WebDocumentCategory .
+
+bbc:subFormatOf
+	rdf:type owl:TransitiveProperty ;
+	rdfs:comment "Allows a format to transitively be a child of another format"@en-gb ;
+	rdfs:subPropertyOf tagging:subConceptOf ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:domain bbc:Format ;
+	rdfs:range bbc:Format ;
+	rdfs:label "subFormatOf"@en-gb .
+
+bbc:subGenreOf
+	rdf:type owl:TransitiveProperty ;
+	rdfs:comment "Allows a genre to transitively be a child of another genre"@en-gb ;
+	rdfs:subPropertyOf tagging:subConceptOf ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:domain bbc:Genre ;
+	rdfs:range bbc:Genre ;
+	rdfs:label "subGenreOf"@en-gb .
+
+bbc:pipsId
+	rdf:type owl:DatatypeProperty ;
+	rdfs:comment "Maps a BBC asset to its equivalent PIPs ID"@en-gb ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	# Removed domain in v1.21
+	# rdfs:domain bbc:Genre , bbc:Format , tagging:Agent ;
+	rdfs:range xsd:String ;
+	rdfs:label "pipsId"@en-gb .
+
+bbc:contributor
+	a owl:ObjectProperty ;
+	rdfs:label "contributor" ;
+	rdfs:comment "Connects a BBC asset to a contributor" ;
+	rdfs:domain owl:Thing ;
+	rdfs:range tagging:Agent .
+
+bbc:campaign
+	a owl:ObjectProperty ;
+	rdfs:label "campaign"@en-gb ;
+	rdfs:comment "This property connects a BBC asset to a particular editorial campaign"@en-gb ;
+	rdfs:domain owl:Thing ;
+	rdfs:range bbc:Campaign ;
+	rdfs:isDefinedBy bbc:1.27 .
+
+# Editorial Sensitivity
+bbc:editorialSensitivity
+	rdf:type owl:ObjectProperty ;
+	rdfs:label "editorialSensitivity"@en-gb ;
+	rdfs:comment "Associates a BBC asset with an editorial sensitivity."@en-gb ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> ;
+	rdfs:domain owl:Thing ;
+	rdfs:range bbc:EditorialSensitivity .
+
+# Audience commissioned for
+bbc:commissionedFor
+	a owl:ObjectProperty ;
+	rdfs:subPropertyOf bbc:relevantTo ;
+	rdfs:comment "This property associates a BBC asset with an audience for which is intended."@en-gb ;
+	rdfs:label "commissionedFor"@en-gb ;
+	rdfs:domain owl:Thing ;
+	rdfs:range bbc:Audience ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> .
+
+# Audience relevant to
+bbc:relevantTo
+	a owl:ObjectProperty ;
+	rdfs:comment "This property associates a BBC asset with an audience to which it's relevant."@en-gb ;
+	rdfs:label "relevantTo"@en-gb ;
+	rdfs:domain owl:Thing ;
+	rdfs:range bbc:Audience ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> .
+
+# Audience suitable for
+bbc:suitableFor
+	a owl:ObjectProperty ;
+	rdfs:comment "This property associates a BBC asset with an audience for which it's suitable."@en-gb ;
+	rdfs:label "suitableFor"@en-gb ;
+	rdfs:domain owl:Thing ;
+	rdfs:range audience:SuitableAgeRange ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> .
+
+# brand predicate - added in version 1.20
+bbc:brand
+	a owl:ObjectProperty ;
+	rdfs:comment "This property associates a BBC asset with bbc:Brand instance"@en-gb ;
+	rdfs:label "brand"@en-gb ;
+	rdfs:domain owl:Thing ;
+	rdfs:range bbc:Brand ;
+	rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/bbc> .
+
+# Primary media type
+bbc:primaryMediaType
+	a owl:ObjectProperty ;
+	rdfs:label "primaryMediaType"@en-gb ;
+	rdfs:comment "This property connects a BBC asset with its primary media type"@en-gb ;
+	rdfs:domain owl:Thing ;
+	rdfs:range cwork:MediaType ;
+	rdfs:isDefinedBy bbc:1.22 .
+
+# InfoClass
+bbc:infoClass
+	a owl:ObjectProperty ;
+	rdfs:label "infoClass"@en-gb ;
+	rdfs:comment "This property associates a BBC asset with an information security classification"@en-gb ;
+	rdfs:domain owl:Thing ;
+	rdfs:range bbc:InfoClass ;
+	rdfs:isDefinedBy bbc:1.23 .
+
+# Narrative Theme
+bbc:narrativeTheme
+	a owl:ObjectProperty ;
+	rdfs:label "narrativeTheme"@en-gb ;
+	rdfs:comment "This property associates a BBC asset with a Narratve Theme"@en-gb ;
+	rdfs:domain owl:Thing ;
+	rdfs:range bbc:NarrativeTheme ;
+	rdfs:isDefinedBy bbc:1.29 .
+
+# Asset Type
+bbc:assetType
+	a owl:ObjectProperty ;
+	rdfs:label "assetType"@en-gb ;
+	rdfs:comment "This property associates a BBC asset with an Asset Type or 'form'"@en-gb ;
+	rdfs:domain owl:Thing ;
+	rdfs:range bbc:AssetType ;
+	rdfs:isDefinedBy bbc:1.30 .
+
+# subOrganisationalUnitOf
+bbc:subOrganisationalUnitOf
+	a owl:TransitiveProperty ;
+	rdfs:label "subOrganisationalUnitOf"@en-gb ;
+	rdfs:comment "This property associates one bbc:OrganisationalUnit with another above it in a hierarchy"@en-gb ;
+	rdfs:domain bbc:OrganisationalUnit ;
+	rdfs:range bbc:OrganisationalUnit ;
+	rdfs:subPropertyOf core:isPartOf ;
+	rdfs:isDefinedBy bbc:1.33 .
+
+# Shelf Life
+bbc:shelfLife
+	a owl:ObjectProperty ;
+	rdfs:label "shelfLife"@en-gb ;
+	rdfs:comment "Associates an asset with a period of time for which it is appropriate to promote an asset"@en-gb ;
+	rdfs:range bbc:ShelfLife ;
+	rdfs:domain owl:Thing ;
+	rdfs:isDefinedBy bbc:1.36 .

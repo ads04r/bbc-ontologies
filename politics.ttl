@@ -1,0 +1,114 @@
+# baseURI: http://www.bbc.co.uk/ontologies/politics
+# imports: http://www.bbc.co.uk/ontologies/coreconcepts
+# imports: http://www.bbc.co.uk/ontologies/provenance
+# imports: http://www.bbc.co.uk/ontologies/organisation
+
+@prefix core:    <http://www.bbc.co.uk/ontologies/coreconcepts/> .
+@prefix dc:      <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms:  <http://purl.org/dc/terms/> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix pol:     <http://www.bbc.co.uk/ontologies/politics/> .
+@prefix org:      <http://www.bbc.co.uk/ontologies/organisation/> .
+@prefix provenance:  <http://www.bbc.co.uk/ontologies/provenance/> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+<http://www.bbc.co.uk/ontologies/politics>
+      rdf:type provenance:Ontology , owl:Ontology ;
+      rdfs:comment "An ontology which describes a model for politics, specifically in terms of local government and elections. This is an evolving spec, originally designed to cope with UK (England and Northern Ireland) Local, and European Elections in May 2014."@en-gb ;
+      rdfs:label "Politics Ontology"@en-gb ;
+      dc:creator <http://www.r4isstatic.com/> ;
+      dc:date "2014-01-06"^^xsd:date ;
+      dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
+      provenance:canonicalLocation
+              "https://repo.dev.bbc.co.uk/services/linked-data/ontologies/domain/news/politics-ontology-0.9.ttl"^^xsd:string ;
+      provenance:changeReason
+              "Adding support for types of MayoralRegion."@en-gb ;
+      provenance:public "true"^^xsd:boolean ;
+      provenance:slug "politics"^^xsd:string ;
+      provenance:version "0.9"^^xsd:string ;
+      owl:imports <http://www.bbc.co.uk/ontologies/coreconcepts> , <http://www.bbc.co.uk/ontologies/provenance> ;
+      owl:priorVersion <http://www.bbc.co.uk/ontologies/politics/0.8> ;
+      owl:versionIRI <http://www.bbc.co.uk/ontologies/politics/0.9> ;
+      owl:versionInfo "0.9"@en-gb .
+
+pol:Council
+      rdf:type owl:Class ;
+      rdfs:comment "An organization with a formal role in local administration or government."@en-gb ;
+      rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/politics> ;
+      rdfs:label "Council"@en-gb ;
+      rdfs:subClassOf core:Organisation .
+
+pol:MayoralRegion
+      rdf:type owl:Class ;
+      rdfs:comment "A region which has a directly elected Mayor."@en-gb ;
+      rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/politics> ;
+      rdfs:label "MayoralRegion"@en-gb ;
+      rdfs:subClassOf core:Organisation .
+
+pol:CouncilType
+      rdf:type owl:Class ;
+      rdfs:comment "The type of Council, which determines the responsibilities that a Council has to the people living within its jurisdiction."@en-gb ;
+      rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/politics> ;
+      rdfs:label "Council Type"@en-gb ;
+      rdfs:subClassOf owl:Thing .
+
+pol:Election
+      rdf:type owl:Class ;
+      rdfs:comment "An event which encapsulates the formal decision-making process by which a population chooses an individual to hold public office."@en-gb ;
+      rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/politics> ;
+      rdfs:label "Election"@en-gb ;
+      rdfs:subClassOf core:Event .
+
+pol:PoliticalParty
+      rdf:type owl:Class ;
+      rdfs:comment "An organization which seeks to influence, direct, or entirely perform government policy, commonly with a shared vision, ideals and goals which unites its' members and supporters."@en-gb ;
+      rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/politics> ;
+      rdfs:label "Political Party"@en-gb ;
+      rdfs:subClassOf core:Organisation .
+
+pol:StatisticalGeography
+      rdf:type owl:Class ;
+      rdfs:comment "A type of geographical bounded area defined specifically to cover political boundaries."@en-gb ;
+      rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/politics> ;
+      rdfs:label "StatisticalGeography"@en-gb ;
+      rdfs:subClassOf core:Place .
+
+pol:Constituency
+      rdf:type owl:Class ;
+      rdfs:comment "An electoral area or division, which can be represented in a political institution."@en-gb ;
+      rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/politics> ;
+      rdfs:label "Constituency"@en-gb ;
+      rdfs:subClassOf pol:StatisticalGeography .
+
+pol:governsGSS
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "property to relate a political organisation, such as a Council, to the area of Statistical Geography which it governs."@en-gb ;
+      rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/politics> ;
+      rdfs:label "governsGSS"@en-gb .
+
+pol:councilType
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "property to relate a Council to the Type of Council it is - which defines which responsibilities it has."@en-gb ;
+      rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/politics> ;
+      rdfs:domain pol:Council ;
+      rdfs:range pol:CouncilType ;
+      rdfs:label "is of council type"@en-gb .
+
+pol:electsTo
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "property to relate an Election to the things which are up for election."@en-gb ;
+      rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/politics> ;
+      rdfs:domain pol:Election ;
+      owl:inverseOf pol:takesPartInElection ;
+      rdfs:label "electsTo"@en-gb .
+
+pol:takesPartInElection
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "property to relate a political organisation, such as a Council, to an Election which it takes part in."@en-gb ;
+      rdfs:isDefinedBy <http://www.bbc.co.uk/ontologies/politics> ;
+      rdfs:range pol:Election ;
+      owl:inverseOf pol:electsTo ;
+      rdfs:label "takes part in election"@en-gb .
